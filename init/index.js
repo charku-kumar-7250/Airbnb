@@ -6,7 +6,8 @@ const initData = require("./data.js");
 const Listing = require("../models/listing.js");
 
 // const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
-const DB_URL = process.env.ATLASDB_URL;
+//const DB_URL = process.env.ATLASDB_URL;
+const DB_URL = process.env.CloudMongoDB_URL;
 main()
 	.then(() => {
 		console.log("connected to DB");

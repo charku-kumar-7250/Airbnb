@@ -6,7 +6,7 @@ module.exports.profile = async (req, res) => {
 		.populate("owner")
 		.sort({ _id: -1 });
 	let allReview = await Review.find({ author: req.user._id });
-	res.render("profiles/profile.ejs", { allListing, allReview });
+	return res.render("profiles/profile.ejs", { allListing, allReview });
 };
 
 module.exports.allListingDestroy = async (req, res, next) => {

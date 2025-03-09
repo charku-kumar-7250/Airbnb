@@ -25,7 +25,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
-const DB_URL = process.env.ATLASDB_URL;
+const DB_URL = process.env.CloudMongoDB_URL;
 const PORT = process.env.PORT || 8080;
 main()
 	.then(() => {
@@ -35,7 +35,11 @@ main()
 
 async function main() {
 
-	await mongoose.connect(DB_URL);
+	//await mongoose.connect(DB_URL);
+	await mongoose.connect(DB_URL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    });
 }
 
 app.listen(PORT, () => {
@@ -114,5 +118,5 @@ app.all("*", (req, res, next) => {
 
 app.use((err, req, res, next) => {
 	let { statusCode = 500, message = "Something went wrong!" } = err;
-	res.status(statusCode).render("listings/error.ejs", { message });
+	return res.status(statusCode).render("listings/error.ejs", { message });
 });

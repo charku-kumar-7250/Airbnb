@@ -3,7 +3,7 @@ const Listing = require("../models/listing");
 const Review = require("../models/review")
 
 module.exports.renderSignupForm = (req, res) => {
-	res.render("users/signup");
+	return res.render("users/signup");
 };
 
 module.exports.signUser = async (req, res, next) => {
@@ -25,7 +25,7 @@ module.exports.signUser = async (req, res, next) => {
 };
 
 module.exports.renderLoginForm = (req, res) => {
-	res.render("users/login");
+	return res.render("users/login");
 };
 
 module.exports.loginUser = async (req, res, next) => {
@@ -47,7 +47,7 @@ module.exports.logoutUser = (req, res, next) => {
 module.exports.updateFormRender = async (req, res, next) => {
 	let { id } = req.params;
 	let user = await User.findById(id);
-	res.render("users/update.ejs", { user });
+	return res.render("users/update.ejs", { user });
 };
 module.exports.updateAccount = async (req, res, next) => {
 	try {
@@ -102,7 +102,7 @@ module.exports.updateImage = async (req, res, next) => {
 module.exports.renderImageChangeForm =async (req, res, next) => {
 	let { id } = req.params;
 	let user = await User.findById(id);
-	res.render("users/changeImage.ejs", { user });
+	return res.render("users/changeImage.ejs", { user });
 }
 
 module.exports.deleteAccount = async (req, res, next) => {

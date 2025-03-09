@@ -5,11 +5,11 @@ const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
 module.exports.index = async (req, res, next) => {
 	let allListing = await Listing.find().sort({ _id: -1 });
-	res.render("listings/index.ejs", { allListing });
+	return res.render("listings/index.ejs", { allListing });
 };
 
 module.exports.renderNewForm = (req, res) => {
-	res.render("listings/new.ejs");
+	return res.render("listings/new.ejs");
 };
 
 module.exports.createListing = async (req, res, next) => {
@@ -41,7 +41,7 @@ module.exports.showListing = async (req, res, next) => {
 		res.redirect("/listings");
 	}
 	console.log(listing);
-	res.render("listings/show.ejs", { listing });
+	return res.render("listings/show.ejs", { listing });
 };
 
 module.exports.renderEditForm = async (req, res, next) => {
@@ -53,7 +53,7 @@ module.exports.renderEditForm = async (req, res, next) => {
 		req.flash("error", "Listing you requested for does not exist!");
 		res.redirect("/listings");
 	}
-	res.render("listings/edit.ejs", { listing, originalImage });
+	return res.render("listings/edit.ejs", { listing, originalImage });
 };
 
 module.exports.updateListing = async (req, res, next) => {
@@ -95,7 +95,7 @@ module.exports.filter = async (req, res, next) => {
 	console.log(allListing);
 	if (allListing.length != 0) {
 		res.locals.success = `Listings Find by ${id}`;
-		res.render("listings/index.ejs", { allListing });
+		return res.render("listings/index.ejs", { allListing });
 	} else {
 		req.flash("error", "Listings is not here !!!");
 		res.redirect("/listings");
@@ -103,7 +103,7 @@ module.exports.filter = async (req, res, next) => {
 };
 
 module.exports.filterbtn = (req, res, next) => {
-	res.render("listings/filterbtn.ejs");
+	return res.render("listings/filterbtn.ejs");
 };
 
 module.exports.search = async (req, res) => {
@@ -135,8 +135,8 @@ module.exports.search = async (req, res) => {
 	});
 	if (allListing.length != 0) {
 		res.locals.success = "Listings searched by Title";
-		res.render("listings/index.ejs", { allListing });
-		return;
+		return res.render("listings/index.ejs", { allListing });
+		//return;
 	}
 	if (allListing.length == 0) {
 		allListing = await Listing.find({
@@ -144,8 +144,8 @@ module.exports.search = async (req, res) => {
 		}).sort({ _id: -1 });
 		if (allListing.length != 0) {
 			res.locals.success = "Listings searched by Category";
-			res.render("listings/index.ejs", { allListing });
-			return;
+			return res.render("listings/index.ejs", { allListing });
+			//return;
 		}
 	}
 	if (allListing.length == 0) {
@@ -154,8 +154,8 @@ module.exports.search = async (req, res) => {
 		}).sort({ _id: -1 });
 		if (allListing.length != 0) {
 			res.locals.success = "Listings searched by Country";
-			res.render("listings/index.ejs", { allListing });
-			return;
+			return res.render("listings/index.ejs", { allListing });
+			//return;
 		}
 	}
 	if (allListing.length == 0) {
@@ -164,8 +164,8 @@ module.exports.search = async (req, res) => {
 		}).sort({ _id: -1 });
 		if (allListing.length != 0) {
 			res.locals.success = "Listings searched by Location";
-			res.render("listings/index.ejs", { allListing });
-			return;
+			return res.render("listings/index.ejs", { allListing });
+			//return;
 		}
 	}
 	const intValue = parseInt(element, 10); // 10 for decimal return - int ya NaN
@@ -177,8 +177,8 @@ module.exports.search = async (req, res) => {
 		});
 		if (allListing.length != 0) {
 			res.locals.success = `Listings searched for less than Rs ${element}`;
-			res.render("listings/index.ejs", { allListing });
-			return;
+			return res.render("listings/index.ejs", { allListing });
+			//return;
 		}
 	}
 	if (allListing.length == 0) {
